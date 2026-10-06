@@ -1,0 +1,51 @@
+# Local development and small single-server deployments.
+#   docker compose up -d postgres        # just the database, run the API/worker with uv
+#   docker compose up -d --build         # everything
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: rafkhata
+      POSTGRES_PASSWORD: rafkhata
+      POSTGRES_DB: rafkhata
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rafkhata"]
+      interval: 5s
+      retries: 10
+
+  api:
+    build: .
+    command: sh -c "rk migrate && rk api --host 0.0.0.0 --port 8000"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DATABASE_URL: postgresql+psycopg://rafkhata:rafkhata@postgres:5432/rafkhata
+    ports:
+      - "8000:8000"
+    volumes:
+      - data:/app/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  worker:
+    build: .
+    command: rk worker
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DATABASE_URL: postgresql+psycopg://rafkhata:rafkhata@postgres:5432/rafkhata
+    volumes:
+      - data:/app/data  # shared with the API when STORAGE_BACKEND=local
+    depends_on:
+      - api
+
+volumes:
+  pgdata:
+  data:

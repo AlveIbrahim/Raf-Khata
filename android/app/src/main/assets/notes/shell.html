@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html class="__THEME__">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="katex/katex.min.css">
+<script src="katex/katex.min.js"></script>
+<script src="katex/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --paper: #FBF8F1; --ink: #1B1C20; --muted: #5B5850; --accent: #2F4A8A;
+    --alert-bg: #FBEDE5; --alert-edge: #B4532A; --ann-bg: #EEF2FB; --rule: #E2DCCD; --pill: #DCE3F7;
+  }
+  html.dark {
+    --paper: #15181F; --ink: #E4E2DB; --muted: #A9A69E; --accent: #B3C5F5;
+    --alert-bg: #3A2418; --alert-edge: #F2B597; --ann-bg: #1F2840; --rule: #34363D; --pill: #2B3F70;
+  }
+  html, body { background: var(--paper); color: var(--ink); margin: 0; }
+  body {
+    font-family: "Noto Sans Bengali", "Hind Siliguri", "Noto Sans", sans-serif;
+    font-size: 17px; line-height: 1.7; padding: 12px 18px 48px; word-wrap: break-word;
+  }
+  h1 { font-size: 1.45em; line-height: 1.35; margin: 0.2em 0 0.6em; color: var(--accent); }
+  h2 { font-size: 1.15em; margin: 1.4em 0 0.4em; padding-bottom: 0.2em; border-bottom: 1px solid var(--rule); }
+  h3 { font-size: 1.02em; margin: 1em 0 0.3em; }
+  ul, ol { padding-left: 1.3em; margin: 0.3em 0; }
+  li { margin: 0.25em 0; }
+  dt { font-weight: 600; margin-top: 0.6em; }
+  dd { margin: 0.1em 0 0.4em 1em; color: var(--ink); }
+  a.ts {
+    display: inline-block; font-size: 0.72em; line-height: 1.4; padding: 0 0.5em; margin-left: 0.35em;
+    border-radius: 0.8em; background: var(--pill); color: var(--accent); text-decoration: none;
+    vertical-align: 0.12em; font-family: sans-serif;
+  }
+  .rk-exam-alerts .rk-alert {
+    background: var(--alert-bg); border-left: 4px solid var(--alert-edge); border-radius: 6px;
+    padding: 0.4em 0.8em; margin: 0.5em 0;
+  }
+  .rk-alert p { margin: 0.2em 0; }
+  blockquote { margin: 0.2em 0 0.3em; color: var(--muted); font-style: italic; }
+  .rk-announcements ul { list-style: none; padding: 0; }
+  .rk-announcements li { background: var(--ann-bg); border-radius: 6px; padding: 0.4em 0.7em; }
+  .rk-due { color: var(--alert-edge); font-weight: 600; }
+  .rk-formula { margin: 0.6em 0; }
+  .rk-math { overflow-x: auto; overflow-y: hidden; }
+  .rk-qa { margin: 0.6em 0; }
+  .rk-q { font-weight: 600; margin: 0.2em 0; }
+  .rk-a { margin: 0.1em 0 0.2em; }
+  .rk-unclear { color: var(--muted); }
+  @media print {
+    html, html.dark { --paper: #FFFFFF; --ink: #000000; --muted: #444444; --accent: #1F3770; --pill: #E8ECF7;
+      --alert-bg: #FBEDE5; --alert-edge: #B4532A; --ann-bg: #EEF2FB; --rule: #CCCCCC; }
+    body { font-size: 12pt; padding: 0; }
+    a.ts { display: none; }
+    section, .rk-alert, .rk-formula, .rk-example { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+__CONTENT__
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (window.renderMathInElement) {
+      renderMathInElement(document.body, {
+        delimiters: [
+          { left: "\\[", right: "\\]", display: true },
+          { left: "\\(", right: "\\)", display: false }
+        ],
+        throwOnError: false
+      });
+    }
+  });
+</script>
+</body>
+</html>
