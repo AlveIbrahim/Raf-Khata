@@ -83,6 +83,10 @@ jobs:
       - name: Build, unit tests and lint
         run: ./gradlew --stacktrace :core-logic:test :app:assembleDebug :app:testDebugUnitTest :app:lintDebug
 
+      - name: Print lint report
+        if: always()
+        run: find app/build -name "lint-results-debug.txt" -exec cat {} \; || true
+
       - name: Upload debug APK
         if: success()
         uses: actions/upload-artifact@v4

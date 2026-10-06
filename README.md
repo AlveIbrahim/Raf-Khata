@@ -51,9 +51,12 @@ uv run rk process-file lecture.m4a --asr sarvam --llm claude --out out/
 Open `android/` in Android Studio (a recent release that supports AGP 9.4), then:
 1. Put the API URL and your Google **Web** OAuth client ID in `android/local.properties`:
    ```properties
-   rafkhata.apiBaseUrl=http://10.0.2.2:8000/
+   rafkhata.apiBaseUrl=http://localhost:8000/
    rafkhata.googleWebClientId=1234567890-abc.apps.googleusercontent.com
    ```
+   With the emulator or a USB-connected phone, run `adb reverse tcp:8000 tcp:8000` so `localhost:8000`
+   on the phone reaches your computer. Over Wi-Fi, use your computer's LAN address both here and in the
+   backend's `PUBLIC_BASE_URL`, which the upload links are built from.
 2. Optional, for push notifications: copy four values from your Firebase app's `google-services.json`
    into the same file (see [deployment §4](docs/deployment.md#4-push-notifications-optional)):
    ```properties

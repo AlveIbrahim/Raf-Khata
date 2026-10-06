@@ -142,6 +142,7 @@ fun SpaceScreen(spaceId: String, onBack: () -> Unit, onLeft: () -> Unit) {
             return@Scaffold
         }
         val canManage = space.role == "owner" || space.role == "cr"
+        val inviteText = stringResource(R.string.invite_message, space.name, space.inviteCode)
         LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(bottom = 24.dp)) {
             state.error?.let { error -> item { ErrorBanner(error, onRetry = vm::refresh) } }
             item {
@@ -160,8 +161,7 @@ fun SpaceScreen(spaceId: String, onBack: () -> Unit, onLeft: () -> Unit) {
                                 Icon(Icons.Filled.ContentCopy, stringResource(R.string.copy))
                             }
                             IconButton(onClick = {
-                                val text = context.getString(R.string.invite_message, space.name, space.inviteCode)
-                                val send = Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, text)
+                                val send = Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, inviteText)
                                 context.startActivity(Intent.createChooser(send, null))
                             }) { Icon(Icons.Filled.Share, stringResource(R.string.share)) }
                             if (canManage) {

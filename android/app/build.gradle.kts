@@ -26,7 +26,7 @@ android {
         versionCode = 1
         versionName = "0.1.0"
 
-        buildConfigField("String", "API_BASE_URL", "\"${prop("rafkhata.apiBaseUrl", "http://10.0.2.2:8000/")}\"")
+        buildConfigField("String", "API_BASE_URL", "\"${prop("rafkhata.apiBaseUrl", "http://localhost:8000/")}\"")
         buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"${prop("rafkhata.googleWebClientId")}\"")
         // Optional push notifications: values from your Firebase project's google-services.json.
         buildConfigField("String", "FIREBASE_PROJECT_ID", "\"${prop("rafkhata.firebaseProjectId")}\"")
@@ -63,9 +63,7 @@ android {
         abortOnError = true
         warningsAsErrors = false
         checkReleaseBuilds = false
-        // Print every issue in the build log, so CI failures are readable without the HTML report.
         textReport = true
-        textOutput = file("stdout")
     }
 
     packaging {
