@@ -154,13 +154,17 @@ class RecordingService : LifecycleService() {
         val current = recorder
         val id = recordingId
         if (current == null || id == null) {
-            if (!stopping) stopSelf()
+            if (!stopping) {
+                state.update { RecorderUi() } // stopped before the microphone was opened
+                stopSelf()
+            }
             return
         }
         if (stopping) return
         stopping = true
         state.update { it.copy(status = RecorderStatus.STOPPING) }
-        lifecycleScope.launch {
+        // Not lifecycleScope: saving must finish even if the service is destroyed meanwhile.
+        container.appScope.launch(Dispatchers.Main) {
             withContext(Dispatchers.IO) { current.stop() }
             recorder = null
             val saved = withContext(Dispatchers.IO) { container.recordings.finish(id) }

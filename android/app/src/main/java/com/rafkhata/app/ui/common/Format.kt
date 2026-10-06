@@ -15,7 +15,7 @@ import java.time.format.TextStyle
 import java.util.Locale
 
 @Composable
-fun currentLocale(): Locale = LocalConfiguration.current.locales[0] ?: Locale.getDefault()
+fun currentLocale(): Locale = LocalConfiguration.current.locales[0] ?: Locale.ROOT
 
 object Fmt {
     fun instant(iso: String?): Instant? {

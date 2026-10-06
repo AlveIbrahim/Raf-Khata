@@ -41,9 +41,10 @@ def main() -> int:
 
     api = httpx.Client(base_url=args.base_url.rstrip("/"), timeout=60)
     print("health:", api.get("/healthz").json())
-    token = args.token or api.post("/auth/dev-login", json={"email": args.email, "name": "Smoke Test"}).json()[
-        "access_token"
-    ]
+    token = (
+        args.token
+        or api.post("/auth/dev-login", json={"email": args.email, "name": "Smoke Test"}).json()["access_token"]
+    )
     api.headers["Authorization"] = f"Bearer {token}"
 
     course = api.post("/courses", json={"title": "Smoke Test Course", "glossary": ["deadlock"]}).json()

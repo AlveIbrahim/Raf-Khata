@@ -55,6 +55,10 @@ class UploadWorker(context: Context, params: WorkerParameters) : CoroutineWorker
             repo.setState(id, RecordingState.FAILED, applicationContext.getString(R.string.error_signed_out))
             return Result.failure()
         }
+        if (recording.ownerId.isNotEmpty() && recording.ownerId != app.auth.currentUser()?.id) {
+            repo.setState(id, RecordingState.FAILED, applicationContext.getString(R.string.upload_other_account))
+            return Result.failure()
+        }
         repo.setState(id, RecordingState.UPLOADING)
         return try {
             upload(recording)

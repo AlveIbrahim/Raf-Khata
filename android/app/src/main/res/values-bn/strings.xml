@@ -86,6 +86,7 @@
     <string name="upload_waiting_network">ইন্টারনেটের অপেক্ষায়</string>
     <string name="upload_failed">আপলোড হয়নি: %1$s</string>
     <string name="upload_failed_title">আপলোড হয়নি</string>
+    <string name="upload_other_account">অন্য অ্যাকাউন্টে থাকার সময় রেকর্ড করা। আপলোড করতে সেই অ্যাকাউন্টে সাইন ইন করুন।</string>
     <string name="delete_recording_title">রেকর্ডিং মুছবেন?</string>
     <string name="delete_recording_text">এই রেকর্ডিং এখনো আপলোড হয়নি। এটি ফোন থেকে মুছে যাবে।</string>
     <string name="battery_tip_title">রেকর্ডিং যেন বন্ধ না হয়</string>

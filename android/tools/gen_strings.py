@@ -130,6 +130,10 @@ STRINGS: dict[str, tuple[str, str]] = {
     "upload_waiting_network": ("Waiting for internet", "ইন্টারনেটের অপেক্ষায়"),
     "upload_failed": ("Upload failed: %1$s", "আপলোড হয়নি: %1$s"),
     "upload_failed_title": ("Upload failed", "আপলোড হয়নি"),
+    "upload_other_account": (
+        "Recorded while signed in to another account. Sign in with that account to upload it.",
+        "অন্য অ্যাকাউন্টে থাকার সময় রেকর্ড করা। আপলোড করতে সেই অ্যাকাউন্টে সাইন ইন করুন।",
+    ),
     "delete_recording_title": ("Delete recording?", "রেকর্ডিং মুছবেন?"),
     "delete_recording_text": (
         "This recording hasn't been uploaded. It will be removed from your phone.",

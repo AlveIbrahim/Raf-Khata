@@ -109,7 +109,8 @@ class AppContainer(private val app: Application) {
     /** After any sign-in: register for pushes and resume uploads that were waiting for an account. */
     suspend fun onSignedIn() {
         push.registerDevice()
-        recordings.withStates(RecordingState.FAILED).forEach { uploads.enqueue(it.id) }
+        val me = auth.currentUser()?.id
+        recordings.withStates(RecordingState.FAILED).filter { it.ownerId == me }.forEach { uploads.enqueue(it.id) }
         uploads.requeueAll(replace = false)
     }
 

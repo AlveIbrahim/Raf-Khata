@@ -88,6 +88,7 @@
     <string name="upload_waiting_network">Waiting for internet</string>
     <string name="upload_failed">Upload failed: %1$s</string>
     <string name="upload_failed_title">Upload failed</string>
+    <string name="upload_other_account">Recorded while signed in to another account. Sign in with that account to upload it.</string>
     <string name="delete_recording_title">Delete recording?</string>
     <string name="delete_recording_text">This recording hasn\'t been uploaded. It will be removed from your phone.</string>
     <string name="battery_tip_title">Keep recordings running</string>

@@ -6,6 +6,7 @@ import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
 import androidx.credentials.exceptions.GetCredentialCancellationException
 import androidx.credentials.exceptions.GetCredentialException
+import androidx.credentials.exceptions.NoCredentialException
 import com.google.android.libraries.identity.googleid.GetSignInWithGoogleOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
@@ -33,6 +34,8 @@ object GoogleSignIn {
             }
         } catch (_: GetCredentialCancellationException) {
             Result.Cancelled
+        } catch (e: NoCredentialException) {
+            Result.Failed(e.message) // no Google account on the phone
         } catch (e: GetCredentialException) {
             Result.Failed(e.message)
         } catch (e: GoogleIdTokenParsingException) {

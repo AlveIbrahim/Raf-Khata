@@ -20,6 +20,8 @@ object RecordingState {
 data class RecordingEntity(
     /** Also the lecture id on the server (a client-generated UUID). */
     @PrimaryKey val id: String,
+    /** The account that recorded it; only that account uploads it. */
+    val ownerId: String,
     val courseId: String?,
     val courseTitle: String?,
     val title: String,

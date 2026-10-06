@@ -19,6 +19,7 @@ import com.rafkhata.app.recording.toAudioSource
 import com.rafkhata.core.Routine
 import com.rafkhata.core.SoundCheck
 import kotlinx.coroutines.Job
+import kotlin.coroutines.cancellation.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -86,6 +87,7 @@ class RecordViewModel(private val app: AppContainer, initialCourseId: String?) :
         app.recordingState.update { RecorderUi(status = RecorderStatus.STARTING, courseTitle = course?.title) }
         viewModelScope.launch {
             val recording = app.recordings.create(
+                ownerId = app.auth.currentUser()?.id.orEmpty(),
                 courseId = course?.id,
                 courseTitle = course?.title,
                 title = s.title.trim(),
@@ -149,7 +151,10 @@ class RecordViewModel(private val app: AppContainer, initialCourseId: String?) :
             val source = app.settings.current().micSource.toAudioSource()
             runCatching { SoundCheckRunner.run(source, SOUND_CHECK_SECONDS) { level -> _state.update { it.copy(soundLevel = level) } } }
                 .onSuccess { result -> _state.update { it.copy(soundChecking = false, soundCheck = result, soundLevel = 0f) } }
-                .onFailure { _state.update { it.copy(soundChecking = false, soundCheckFailed = true, soundLevel = 0f) } }
+                .onFailure { e ->
+                    val cancelled = e is CancellationException
+                    _state.update { it.copy(soundChecking = false, soundCheckFailed = !cancelled, soundLevel = 0f) }
+                }
         }
     }
 

@@ -63,6 +63,9 @@ android {
         abortOnError = true
         warningsAsErrors = false
         checkReleaseBuilds = false
+        // Print every issue in the build log, so CI failures are readable without the HTML report.
+        textReport = true
+        textOutput = file("stdout")
     }
 
     packaging {

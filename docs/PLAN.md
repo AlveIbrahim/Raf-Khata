@@ -141,8 +141,9 @@ limits, and user-controlled delete and export. There is never a covert recording
    the segments.
 3. **Preprocess:**
    - Convert with ffmpeg to 16 kHz mono and normalize loudness (EBU R128).
-   - Run Silero VAD to cut long silences (board-writing pauses) while keeping a time map, so billed
-     audio drops and timestamps stay correct.
+   - Run a VAD to cut long silences (board-writing pauses) while keeping a time map, so billed audio
+     drops and timestamps stay correct. The build uses an energy VAD with an adaptive noise floor;
+     Silero VAD is the upgrade if Phase 0 shows it cuts more cleanly.
    - Compute an audio-quality score. Denoising (DeepFilterNet/Demucs) runs only if Phase 0 shows it helps.
 4. **ASR** behind a provider-agnostic `ASRProvider` interface:
    - Primary: Sarvam saaras v3 batch in `codemix` mode with diarization.

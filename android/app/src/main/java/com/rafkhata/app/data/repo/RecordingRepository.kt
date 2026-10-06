@@ -38,6 +38,7 @@ class RecordingRepository(private val context: Context, private val db: AppDatab
     suspend fun get(id: String): RecordingEntity? = dao.get(id)
 
     suspend fun create(
+        ownerId: String,
         courseId: String?,
         courseTitle: String?,
         title: String,
@@ -46,6 +47,7 @@ class RecordingRepository(private val context: Context, private val db: AppDatab
     ): RecordingEntity {
         val recording = RecordingEntity(
             id = UUID.randomUUID().toString(),
+            ownerId = ownerId,
             courseId = courseId,
             courseTitle = courseTitle,
             title = title,
@@ -205,7 +207,8 @@ class RecordingRepository(private val context: Context, private val db: AppDatab
 
     /** Re-encodes big camera photos to at most [MAX_PHOTO_EDGE] px so they upload quickly. */
     private fun shrinkPhoto(file: File) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P || file.length() < 1_500_000) return
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) return
+        if (file.length() < 1_500_000) return
         runCatching {
             val bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(file)) { decoder, info, _ ->
                 val longest = max(info.size.width, info.size.height)

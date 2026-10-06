@@ -32,7 +32,7 @@ object ImageLoader {
         return withContext(Dispatchers.IO) {
             runCatching {
                 val bytes = client.newCall(Request.Builder().url(url).build()).execute().use { response ->
-                    if (response.isSuccessful) response.body?.bytes() else null
+                    if (response.isSuccessful) response.body.bytes() else null
                 } ?: return@runCatching null
                 val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
                 BitmapFactory.decodeByteArray(bytes, 0, bytes.size, bounds)
