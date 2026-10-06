@@ -35,6 +35,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
@@ -156,7 +157,7 @@ fun SpacesScreen(onOpenTab: (MainTab) -> Unit, onOpenSpace: (String) -> Unit) {
                                 space.sectionLabel?.takeIf { it.isNotBlank() },
                                 space.university?.takeIf { it.isNotBlank() },
                                 roleLabel(space.role),
-                                stringResource(R.string.member_count, space.memberCount),
+                                pluralStringResource(R.plurals.member_count, space.memberCount, space.memberCount),
                             ).joinToString(" · "),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,

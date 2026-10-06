@@ -38,6 +38,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
@@ -244,7 +245,7 @@ fun SettingsScreen(onBack: () -> Unit, onEditProfile: () -> Unit, onSignedOut: (
     when (confirm) {
         "signout" -> ConfirmDialog(
             title = stringResource(R.string.sign_out),
-            text = if (unsent > 0) stringResource(R.string.sign_out_unsent, unsent) else stringResource(R.string.sign_out_text),
+            text = if (unsent > 0) pluralStringResource(R.plurals.sign_out_unsent, unsent, unsent) else stringResource(R.string.sign_out_text),
             confirmLabel = stringResource(R.string.sign_out),
             destructive = unsent > 0,
             onConfirm = {

@@ -1,5 +1,5 @@
 [versions]
-agp = "9.4.0"
+agp = "9.4.1"
 kotlin = "2.4.20"
 ksp = "2.3.12"
 composeBom = "2026.09.00"
@@ -13,8 +13,8 @@ work = "2.12.0"
 datastore = "1.2.1"
 media3 = "1.11.1"
 credentials = "1.6.0"
-googleid = "1.1.1"
-firebaseBom = "34.0.0"
+googleid = "1.2.1"
+firebaseBom = "34.19.0"
 retrofit = "3.0.0"
 okhttp = "5.5.0"
 serialization = "1.11.0"
@@ -22,6 +22,8 @@ coroutines = "1.11.0"
 junit = "4.13.2"
 
 [libraries]
+# The included build in core-logic/ (substituted by Gradle, so no version).
+rafkhata-core-logic = { module = "com.rafkhata:core-logic" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }

@@ -9,8 +9,10 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-# key: (English, Bangla). Format arguments must match between the two.
-STRINGS: dict[str, tuple[str, str]] = {
+# key: (English, Bangla). Format arguments must match between the two. A dict instead of a string
+# makes a <plurals> resource ({"one": ..., "other": ...}; Bangla uses the same two categories).
+Text = str | dict[str, str]
+STRINGS: dict[str, tuple[Text, Text]] = {
     "app_name": ("Raf Khata", "রাফ খাতা"),
     "tagline": ("Record the class. Get the notes.", "ক্লাস রেকর্ড করুন, নোট পেয়ে যান।"),
     "signin_explainer": (
@@ -169,7 +171,10 @@ STRINGS: dict[str, tuple[str, str]] = {
     "archived_courses": ("Archived (%1$d)", "আর্কাইভ করা (%1$d)"),
     "archive": ("Archive", "আর্কাইভ করুন"),
     "unarchive": ("Unarchive", "আর্কাইভ থেকে ফেরান"),
-    "lecture_count": ("%1$d lectures", "%1$dটি লেকচার"),
+    "lecture_count": (
+        {"one": "%1$d lecture", "other": "%1$d lectures"},
+        {"one": "%1$dটি লেকচার", "other": "%1$dটি লেকচার"},
+    ),
     "shared_with_section": ("Shared with %1$s", "%1$s সেকশনের সাথে শেয়ার করা"),
     "only_me": ("Only me", "শুধু আমি"),
     "notes_in": ("Notes in %1$s", "নোটের ভাষা: %1$s"),
@@ -225,7 +230,10 @@ STRINGS: dict[str, tuple[str, str]] = {
     "section_name": ("Section name", "সেকশনের নাম"),
     "section_label": ("Section (e.g. CSE-22 B)", "সেকশন (যেমন CSE-22 B)"),
     "no_sections": ("You're not in a section yet.", "আপনি এখনো কোনো সেকশনে নেই।"),
-    "member_count": ("%1$d members", "%1$d জন সদস্য"),
+    "member_count": (
+        {"one": "%1$d member", "other": "%1$d members"},
+        {"one": "%1$d জন সদস্য", "other": "%1$d জন সদস্য"},
+    ),
     "members_count": ("Members (%1$d)", "সদস্য (%1$d)"),
     "member_me": ("%1$s (you)", "%1$s (আপনি)"),
     "role_owner": ("Owner", "মালিক"),
@@ -298,7 +306,14 @@ STRINGS: dict[str, tuple[str, str]] = {
     "bookmark_important": ("Important", "গুরুত্বপূর্ণ"),
     "bookmark_confused": ("Didn't get it", "বুঝিনি"),
     "bookmark_mic_silenced": ("Microphone was paused by a call", "কলের কারণে মাইক্রোফোন বন্ধ ছিল"),
-    "bookmark_counts": ("%1$d bookmarks · %2$d photos", "%1$dটি বুকমার্ক · %2$dটি ছবি"),
+    "bookmark_count": (
+        {"one": "%1$d bookmark", "other": "%1$d bookmarks"},
+        {"one": "%1$dটি বুকমার্ক", "other": "%1$dটি বুকমার্ক"},
+    ),
+    "photo_count": (
+        {"one": "%1$d photo", "other": "%1$d photos"},
+        {"one": "%1$dটি ছবি", "other": "%1$dটি ছবি"},
+    ),
     "board_photo": ("Board photo", "বোর্ডের ছবি"),
     "board_photos": ("Board photos", "বোর্ডের ছবি"),
     "no_camera_app": ("No camera app found.", "কোনো ক্যামেরা অ্যাপ পাওয়া যায়নি।"),
@@ -366,7 +381,7 @@ STRINGS: dict[str, tuple[str, str]] = {
     "correct": ("Correct!", "সঠিক!"),
     "not_quite": ("Not quite", "সঠিক হয়নি"),
     "see_score": ("See score", "স্কোর দেখুন"),
-    "quiz_score": ("You got %1$d of %2$d right", "%2$dটির মধ্যে %1$dটি সঠিক"),
+    "quiz_score": ("Score: %1$d / %2$d", "স্কোর: %1$d / %2$d"),
     "short_question": ("Short question", "সংক্ষিপ্ত প্রশ্ন"),
     "broad_question": ("Broad question", "রচনামূলক প্রশ্ন"),
     "show_answer": ("Show answer points", "উত্তরের মূল পয়েন্ট দেখুন"),
@@ -381,7 +396,10 @@ STRINGS: dict[str, tuple[str, str]] = {
     "date_not_clear": ("Date not clear", "তারিখ স্পষ্ট নয়"),
     "due_today": ("today", "আজ"),
     "due_tomorrow": ("tomorrow", "আগামীকাল"),
-    "due_in_days": ("in %1$d days", "%1$d দিন পর"),
+    "due_in_days": (
+        {"one": "in %1$d day", "other": "in %1$d days"},
+        {"one": "%1$d দিন পর", "other": "%1$d দিন পর"},
+    ),
     "reminder_on": ("Reminder on", "রিমাইন্ডার চালু"),
     "reminder_off": ("Reminder off", "রিমাইন্ডার বন্ধ"),
     "reminders_off_hint": ("Reminders are off. Turn them on in Settings.", "রিমাইন্ডার বন্ধ আছে। সেটিংস থেকে চালু করুন।"),
@@ -451,8 +469,14 @@ STRINGS: dict[str, tuple[str, str]] = {
     "sign_out": ("Sign out", "সাইন আউট"),
     "sign_out_text": ("You can sign in again any time.", "যেকোনো সময় আবার সাইন ইন করতে পারবেন।"),
     "sign_out_unsent": (
-        "%1$d recordings haven't been uploaded yet and will be deleted from this phone.",
-        "%1$dটি রেকর্ডিং এখনো আপলোড হয়নি, সেগুলো এই ফোন থেকে মুছে যাবে।",
+        {
+            "one": "%1$d recording hasn't been uploaded yet and will be deleted from this phone.",
+            "other": "%1$d recordings haven't been uploaded yet and will be deleted from this phone.",
+        },
+        {
+            "one": "%1$dটি রেকর্ডিং এখনো আপলোড হয়নি, সেটি এই ফোন থেকে মুছে যাবে।",
+            "other": "%1$dটি রেকর্ডিং এখনো আপলোড হয়নি, সেগুলো এই ফোন থেকে মুছে যাবে।",
+        },
     ),
     "delete_account": ("Delete account", "অ্যাকাউন্ট মুছুন"),
     "delete_account_hint": ("Removes your account, recordings and notes.", "আপনার অ্যাকাউন্ট, রেকর্ডিং আর নোট মুছে যাবে।"),
@@ -481,30 +505,46 @@ def escape(text: str) -> str:
 
 
 def render(index: int) -> str:
-    lines = ['<?xml version="1.0" encoding="utf-8"?>', "<!-- Generated by android/tools/gen_strings.py. Edit that file. -->", "<resources>"]
+    lines = [
+        '<?xml version="1.0" encoding="utf-8"?>',
+        "<!-- Generated by android/tools/gen_strings.py. Edit that file. -->",
+        "<resources>",
+    ]
     for key, values in STRINGS.items():
-        attrs = ' translatable="false"' if values[0] == values[1] and index == 0 and key.startswith("lang") else ""
-        lines.append(f'    <string name="{key}"{attrs}>{escape(values[index])}</string>')
+        if index == 1 and key in untranslatable():
+            continue
+        value = values[index]
+        if isinstance(value, dict):
+            lines.append(f'    <plurals name="{key}">')
+            for quantity, text in value.items():
+                lines.append(f'        <item quantity="{quantity}">{escape(text)}</item>')
+            lines.append("    </plurals>")
+        else:
+            attrs = ' translatable="false"' if index == 0 and key in untranslatable() else ""
+            lines.append(f'    <string name="{key}"{attrs}>{escape(value)}</string>')
     lines.append("</resources>")
     return "\n".join(lines) + "\n"
 
 
 def main() -> None:
     for key, (en, bn) in STRINGS.items():
-        if sorted(ARG.findall(en)) != sorted(ARG.findall(bn)):
+        if isinstance(en, dict) != isinstance(bn, dict):
+            raise SystemExit(f"{key!r} must be a plural in both languages or in neither")
+        en_texts = list(en.values()) if isinstance(en, dict) else [en]
+        bn_texts = list(bn.values()) if isinstance(bn, dict) else [bn]
+        args = {tuple(sorted(ARG.findall(t))) for t in en_texts + bn_texts}
+        if len(args) != 1:
             raise SystemExit(f"format arguments differ for {key!r}")
     res = Path(__file__).resolve().parent.parent / "app" / "src" / "main" / "res"
     (res / "values").mkdir(parents=True, exist_ok=True)
     (res / "values-bn").mkdir(parents=True, exist_ok=True)
     (res / "values" / "strings.xml").write_text(render(0), encoding="utf-8")
-    bn = render(1)
-    # Untranslatable strings live only in the default file.
-    bn_lines = [line for line in bn.splitlines() if not any(f'name="{k}"' in line for k in untranslatable())]
-    (res / "values-bn" / "strings.xml").write_text("\n".join(bn_lines) + "\n", encoding="utf-8")
+    (res / "values-bn" / "strings.xml").write_text(render(1), encoding="utf-8")
     print(f"wrote {len(STRINGS)} strings")
 
 
 def untranslatable() -> list[str]:
+    """Language names, which read the same in both files."""
     return [k for k, (en, bn) in STRINGS.items() if en == bn and k.startswith("lang")]
 
 

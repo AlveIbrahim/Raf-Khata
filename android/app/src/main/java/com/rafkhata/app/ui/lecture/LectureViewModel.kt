@@ -302,6 +302,5 @@ class LectureViewModel(private val app: AppContainer, private val lectureId: Str
 
     override fun onCleared() {
         player.release()
-        super.onCleared()
     }
 }

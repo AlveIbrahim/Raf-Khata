@@ -111,7 +111,10 @@
     <string name="archived_courses">Archived (%1$d)</string>
     <string name="archive">Archive</string>
     <string name="unarchive">Unarchive</string>
-    <string name="lecture_count">%1$d lectures</string>
+    <plurals name="lecture_count">
+        <item quantity="one">%1$d lecture</item>
+        <item quantity="other">%1$d lectures</item>
+    </plurals>
     <string name="shared_with_section">Shared with %1$s</string>
     <string name="only_me">Only me</string>
     <string name="notes_in">Notes in %1$s</string>
@@ -142,7 +145,10 @@
     <string name="section_name">Section name</string>
     <string name="section_label">Section (e.g. CSE-22 B)</string>
     <string name="no_sections">You\'re not in a section yet.</string>
-    <string name="member_count">%1$d members</string>
+    <plurals name="member_count">
+        <item quantity="one">%1$d member</item>
+        <item quantity="other">%1$d members</item>
+    </plurals>
     <string name="members_count">Members (%1$d)</string>
     <string name="member_me">%1$s (you)</string>
     <string name="role_owner">Owner</string>
@@ -182,7 +188,14 @@
     <string name="bookmark_important">Important</string>
     <string name="bookmark_confused">Didn\'t get it</string>
     <string name="bookmark_mic_silenced">Microphone was paused by a call</string>
-    <string name="bookmark_counts">%1$d bookmarks · %2$d photos</string>
+    <plurals name="bookmark_count">
+        <item quantity="one">%1$d bookmark</item>
+        <item quantity="other">%1$d bookmarks</item>
+    </plurals>
+    <plurals name="photo_count">
+        <item quantity="one">%1$d photo</item>
+        <item quantity="other">%1$d photos</item>
+    </plurals>
     <string name="board_photo">Board photo</string>
     <string name="board_photos">Board photos</string>
     <string name="no_camera_app">No camera app found.</string>
@@ -228,7 +241,7 @@
     <string name="correct">Correct!</string>
     <string name="not_quite">Not quite</string>
     <string name="see_score">See score</string>
-    <string name="quiz_score">You got %1$d of %2$d right</string>
+    <string name="quiz_score">Score: %1$d / %2$d</string>
     <string name="short_question">Short question</string>
     <string name="broad_question">Broad question</string>
     <string name="show_answer">Show answer points</string>
@@ -239,7 +252,10 @@
     <string name="date_not_clear">Date not clear</string>
     <string name="due_today">today</string>
     <string name="due_tomorrow">tomorrow</string>
-    <string name="due_in_days">in %1$d days</string>
+    <plurals name="due_in_days">
+        <item quantity="one">in %1$d day</item>
+        <item quantity="other">in %1$d days</item>
+    </plurals>
     <string name="reminder_on">Reminder on</string>
     <string name="reminder_off">Reminder off</string>
     <string name="reminders_off_hint">Reminders are off. Turn them on in Settings.</string>
@@ -284,7 +300,10 @@
     <string name="export_done">Your data was exported.</string>
     <string name="sign_out">Sign out</string>
     <string name="sign_out_text">You can sign in again any time.</string>
-    <string name="sign_out_unsent">%1$d recordings haven\'t been uploaded yet and will be deleted from this phone.</string>
+    <plurals name="sign_out_unsent">
+        <item quantity="one">%1$d recording hasn\'t been uploaded yet and will be deleted from this phone.</item>
+        <item quantity="other">%1$d recordings haven\'t been uploaded yet and will be deleted from this phone.</item>
+    </plurals>
     <string name="delete_account">Delete account</string>
     <string name="delete_account_hint">Removes your account, recordings and notes.</string>
     <string name="delete_account_text">Your account and every lecture you recorded, with its transcript and notes, are deleted permanently, also for your sections.</string>

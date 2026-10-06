@@ -30,6 +30,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
@@ -143,7 +144,7 @@ fun CourseRow(course: CourseDto, onClick: () -> Unit) {
         val meta = listOfNotNull(
             course.teacherName?.takeIf { it.isNotBlank() },
             course.spaceName?.let { stringResource(R.string.shared_with_section, it) },
-            stringResource(R.string.lecture_count, course.lectureCount),
+            pluralStringResource(R.plurals.lecture_count, course.lectureCount, course.lectureCount),
         ).joinToString(" · ")
         Text(meta, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }

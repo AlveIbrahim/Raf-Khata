@@ -29,6 +29,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
@@ -194,7 +195,7 @@ private fun DeadlineRow(
                 val relative = when {
                     days == 0 -> stringResource(R.string.due_today)
                     days == 1 -> stringResource(R.string.due_tomorrow)
-                    days > 1 -> stringResource(R.string.due_in_days, days)
+                    days > 1 -> pluralStringResource(R.plurals.due_in_days, days, days)
                     else -> null
                 }
                 listOfNotNull(Fmt.date(it, locale), relative).joinToString(" · ")

@@ -74,7 +74,7 @@ android {
 }
 
 dependencies {
-    implementation("com.rafkhata:core-logic")
+    implementation(libs.rafkhata.core.logic)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

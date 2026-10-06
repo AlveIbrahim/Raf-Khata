@@ -63,6 +63,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -387,7 +388,8 @@ private fun RecordingPanel(
             Text(stringResource(R.string.board_photo))
         }
         Text(
-            stringResource(R.string.bookmark_counts, recorder.bookmarks, recorder.photos),
+            pluralStringResource(R.plurals.bookmark_count, recorder.bookmarks, recorder.bookmarks) + " · " +
+                pluralStringResource(R.plurals.photo_count, recorder.photos, recorder.photos),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
