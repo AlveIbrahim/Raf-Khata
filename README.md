@@ -43,8 +43,8 @@ To try the pipeline on a recording without the app:
 
 ```bash
 uv run rk process-file lecture.m4a --asr mock --llm fake --out out/
-# with real providers (set SARVAM_API_KEY / SONIOX_API_KEY / ANTHROPIC_API_KEY in .env):
-uv run rk process-file lecture.m4a --asr sarvam --llm claude --out out/
+# with real providers (set SARVAM_API_KEY or SONIOX_API_KEY, and GEMINI_API_KEY or ANTHROPIC_API_KEY, in .env):
+uv run rk process-file lecture.m4a --asr sarvam --llm gemini --out out/   # or --llm claude
 ```
 
 ### Android

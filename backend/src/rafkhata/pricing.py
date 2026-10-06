@@ -15,6 +15,12 @@ LLM_USD_PER_MTOK = {
     "claude-sonnet-5-5": (2.0, 10.0, 0.20),
     "claude-sonnet-5": (2.0, 10.0, 0.20),
     "claude-haiku-4-5": (1.0, 5.0, 0.10),
+    # Gemini paid-tier list prices (the free tier costs nothing but has daily limits).
+    "gemini-3.5-flash": (1.50, 9.00, 0.15),
+    "gemini-3.5-flash-lite": (0.30, 2.50, 0.03),
+    "gemini-3.1-flash-lite": (0.25, 1.50, 0.025),
+    "gemini-2.5-flash": (0.30, 2.50, 0.03),
+    "gemini-2.5-flash-lite": (0.10, 0.40, 0.01),
     "fake": (0.0, 0.0, 0.0),
 }
 CACHE_WRITE_MULTIPLIER = 1.25

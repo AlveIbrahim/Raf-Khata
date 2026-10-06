@@ -68,9 +68,7 @@ def process_file(
     costs: list[dict] = []
 
     def add_llm_cost(step: str, usage: LLMUsage) -> None:
-        costs.append(
-            {"step": step, "model": usage.model, **usage.model_dump(), "usd": llm_cost(usage, settings.llm_model)}
-        )
+        costs.append({"step": step, **usage.model_dump(), "usd": llm_cost(usage)})
 
     with tempfile.TemporaryDirectory() as tmp:
         prepared = prepare_audio([audio], Path(tmp), trim=settings.vad_trim, min_gap_s=settings.vad_trim_min_gap_s)

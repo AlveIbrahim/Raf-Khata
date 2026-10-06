@@ -69,6 +69,22 @@ including any user edits.
 - `LLM_MODEL` (default `claude-opus-5-5`) and per-step effort are configurable. The cost of every call
   is recorded in `cost_ledger`.
 
+### Gemini usage (`pipeline/llm/gemini.py`)
+Set `LLM_PROVIDER=gemini` and `GEMINI_API_KEY` (a Google AI Studio key).
+- Same prompts and Pydantic schemas as Claude:
+  - `system_instruction` holds the shared rules;
+  - one user turn: lecture details and transcript, then the task;
+  - `response_schema=<Pydantic model>` for structured output.
+- The transcript block is identical in the correction, notes and study calls, so Gemini's implicit
+  caching bills the repeats at the cached-token rate.
+- `GEMINI_MODEL` (default `gemini-3.5-flash`) and `GEMINI_THINKING_LEVEL` are configurable. Gemini 2.x
+  models keep their default thinking.
+- Errors:
+  - a blocked prompt, or a safety or recitation stop, fails the lecture as a refusal;
+  - rate limits (429) and server errors are retried with backoff.
+- Costs are recorded at paid-tier list prices. On the free tier they cost nothing, but there are
+  daily limits and Google may use the data.
+
 ### Adding a speech-recognition provider
 Implement `transcribe(ASRRequest) -> ASRResult` (see `pipeline/asr/soniox.py`) and register it in
 `pipeline/asr/__init__.py`. `rk process-file --asr <name>` and `rk score` compare it on your own

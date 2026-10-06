@@ -8,7 +8,7 @@ Bangladesh.
 | What | Where | Used for |
 |---|---|---|
 | Google OAuth clients | Google Cloud Console → APIs & Services → Credentials | Sign-in. See §3 |
-| Anthropic API key | console.anthropic.com | Correction, notes, study packs (`ANTHROPIC_API_KEY`) |
+| Gemini API key **or** Anthropic API key | aistudio.google.com/apikey, or console.anthropic.com | Correction, notes, study packs (`GEMINI_API_KEY` with `LLM_PROVIDER=gemini`, or `ANTHROPIC_API_KEY` with `LLM_PROVIDER=claude`). On Gemini's free tier Google may use the data to improve its products, so enable billing before processing real lectures |
 | Sarvam API key | dashboard.sarvam.ai | Primary speech recognition (`SARVAM_API_KEY`). Billed in INR; confirm you can pay from Bangladesh |
 | Soniox API key | console.soniox.com | Fallback speech recognition (`SONIOX_API_KEY`) |
 | Cloudflare R2 bucket + API token | Cloudflare dashboard → R2 | Audio and photos (`S3_*`) |
@@ -37,9 +37,12 @@ Bangladesh.
    SARVAM_API_KEY=...
    SONIOX_API_KEY=...
 
-   LLM_PROVIDER=claude
-   ANTHROPIC_API_KEY=...
-   LLM_MODEL=claude-opus-5-5
+   LLM_PROVIDER=gemini            # or claude
+   GEMINI_API_KEY=...
+   GEMINI_MODEL=gemini-3.5-flash
+   # LLM_PROVIDER=claude
+   # ANTHROPIC_API_KEY=...
+   # LLM_MODEL=claude-opus-5-5
    ```
 4. Change the Postgres password in `docker-compose.yml`, or point `DATABASE_URL` at a managed
    Postgres with backups.
@@ -86,7 +89,7 @@ Bangladesh.
   `uv run python scripts/smoke.py https://staging.your-domain.com`. It uploads a test tone, waits for
   processing, and checks the transcript, notes, study pack and audio.
 - Try a real recording without the app:
-  `uv run rk process-file lecture.m4a --asr sarvam --llm claude --out out/`.
+  `uv run rk process-file lecture.m4a --asr sarvam --llm gemini --out out/` (or `--llm claude`).
 
 ## 6. Operations
 - **Cost per lecture:** `SELECT lecture_id, sum(usd) FROM cost_ledger GROUP BY 1 ORDER BY 2 DESC;`
@@ -97,4 +100,4 @@ Bangladesh.
   lecture or an account removes its files.
 - **Backups:** back up Postgres daily, and enable R2 object versioning if you need to undo deletions.
 - **Data protection:** see `privacy-policy-template.md` and the PDPO 2025 notes in `research.md`.
-  Record which processors receive data (Sarvam, Soniox, Anthropic, Cloudflare, Google).
+  Record which processors receive data (Sarvam, Soniox, Google or Anthropic, Cloudflare).

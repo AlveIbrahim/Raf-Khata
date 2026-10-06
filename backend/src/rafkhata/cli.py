@@ -88,7 +88,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("audio")
     p.add_argument("--out", default="out")
     p.add_argument("--asr", default=None, help="sarvam | soniox | mock (default: ASR_PRIMARY)")
-    p.add_argument("--llm", default=None, help="claude | fake (default: LLM_PROVIDER)")
+    p.add_argument("--llm", default=None, help="claude | gemini | fake (default: LLM_PROVIDER)")
     p.add_argument("--lang", default="bn", choices=["bn", "en", "mixed"], help="notes language")
     p.add_argument("--glossary", help="file with one course term per line")
     p.add_argument("--course", default="", help="course title, used as context")

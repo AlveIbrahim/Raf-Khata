@@ -17,7 +17,7 @@ uv run rk worker
 | `rk api [--port 8000] [--reload]` | Run the HTTP API |
 | `rk worker [--once]` | Process queued jobs |
 | `rk migrate` | Apply database migrations |
-| `rk process-file AUDIO --asr sarvam --llm claude --lang bn --glossary terms.txt --out out/` | Run the whole pipeline on one file, no database needed |
+| `rk process-file AUDIO --asr sarvam --llm gemini --lang bn --glossary terms.txt --out out/` (or `--llm claude`) | Run the whole pipeline on one file, no database needed |
 | `rk score HYP REF [--glossary terms.txt]` | CER, WER, term recall and English-in-Latin recall of a transcript against a reference |
 
 Tests: `uv run pytest` (SQLite). To run them on PostgreSQL through the migrations:

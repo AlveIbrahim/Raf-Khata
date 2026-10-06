@@ -53,7 +53,7 @@ class Settings(BaseSettings):
     asr_timeout_s: int = 3 * 3600
 
     # --- LLM (notes) ---
-    llm_provider: Literal["claude", "fake"] = "fake"
+    llm_provider: Literal["claude", "gemini", "fake"] = "fake"
     anthropic_api_key: str | None = None
     llm_model: str = "claude-opus-5-5"
     llm_effort_correct: Literal["low", "medium", "high", "xhigh", "max"] = "low"
@@ -61,6 +61,11 @@ class Settings(BaseSettings):
     llm_effort_study: Literal["low", "medium", "high", "xhigh", "max"] = "low"
     llm_fallbacks: bool = True
     llm_max_tokens: int = 32000
+    # Gemini (Google AI Studio key). "default" leaves thinking to the model.
+    gemini_api_key: str | None = None
+    gemini_model: str = "gemini-3.5-flash"
+    gemini_thinking_level: Literal["default", "minimal", "low", "medium", "high"] = "default"
+    gemini_timeout_s: int = 600
 
     # --- Pipeline ---
     vad_trim: bool = True

@@ -22,6 +22,8 @@ Bangla and Bangla-English code-mixed ("Banglish") speech, and get exam-ready stu
 - Native Android app in **Kotlin**.
 - **Python** backend and AI pipeline, **self-hosted** (FastAPI + PostgreSQL + S3/R2 storage).
 - Speech recognition: **paid APIs first, our own model later**.
+- Notes model: **Gemini (Google AI Studio key)** is the planned choice; Claude remains supported. Both
+  use the same prompts and output schemas, so Phase 0 can compare them on the same lectures.
 - The first build covers **Phase 1 (MVP) only** (§2). Phase 0 measurement runs alongside it, using the
   app itself and the backend's `rk process-file` and `rk score` commands instead of a separate prototype.
 

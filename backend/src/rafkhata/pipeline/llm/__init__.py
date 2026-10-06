@@ -13,6 +13,10 @@ def make_llm(name: str, settings: Settings) -> NotesLLM:
         from rafkhata.pipeline.llm.claude import ClaudeLLM
 
         return ClaudeLLM(settings)
+    if name == "gemini":
+        from rafkhata.pipeline.llm.gemini import GeminiLLM
+
+        return GeminiLLM(settings)
     if name == "fake":
         from rafkhata.pipeline.llm.fake import FakeLLM
 
