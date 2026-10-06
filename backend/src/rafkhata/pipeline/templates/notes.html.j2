@@ -1,0 +1,67 @@
+{#- Notes as an HTML fragment. The app wraps it in its own shell (styles, KaTeX, fonts). -#}
+{%- macro cite(ids) -%}
+{%- set t = first_time(ids) -%}
+{%- if t is not none %} <a class="ts" href="rafkhata://seek?t={{ '%.1f' % t }}">{{ fmt(t) }}</a>{% endif -%}
+{%- endmacro -%}
+<article class="rk-notes" lang="{{ html_lang }}">
+<h1>{{ notes.title }}</h1>
+{%- if notes.summary %}
+<section class="rk-summary"><h2>{{ h.summary }}</h2><ul>
+{%- for item in notes.summary %}<li>{{ item }}</li>{% endfor -%}
+</ul></section>
+{%- endif %}
+{%- if notes.exam_alerts %}
+<section class="rk-exam-alerts"><h2>{{ h.exam_alerts }}</h2>
+{%- for a in notes.exam_alerts %}
+<div class="rk-alert"><p>{{ a.text }}{{ cite(a.source_segment_ids) }}</p>
+{%- if a.teacher_quote %}<blockquote>“{{ a.teacher_quote }}”</blockquote>{% endif %}</div>
+{%- endfor %}
+</section>
+{%- endif %}
+{%- if notes.announcements %}
+<section class="rk-announcements"><h2>{{ h.announcements }}</h2><ul>
+{%- for a in notes.announcements %}
+<li data-kind="{{ a.kind }}"><strong>{{ kinds.get(a.kind, a.kind) }}:</strong> {{ a.text }}
+{%- if a.due_date or a.due_text %} <span class="rk-due">({{ a.due_date or '' }}{% if a.due_date and a.due_text %} · {% endif %}{{ a.due_text or '' }})</span>{% endif %}{{ cite(a.source_segment_ids) }}</li>
+{%- endfor %}
+</ul></section>
+{%- endif %}
+{%- for s in notes.sections %}
+<section class="rk-topic"><h2>{{ s.title }}{{ cite([s.start_segment_id]) }}</h2><ul>
+{%- for b in s.bullets %}<li>{{ b.text }}{{ cite(b.source_segment_ids) }}</li>{% endfor -%}
+</ul></section>
+{%- endfor %}
+{%- if notes.definitions %}
+<section class="rk-definitions"><h2>{{ h.definitions }}</h2><dl>
+{%- for d in notes.definitions %}<dt>{{ d.term }}{{ cite(d.source_segment_ids) }}</dt><dd>{{ d.explanation }}</dd>{% endfor -%}
+</dl></section>
+{%- endif %}
+{%- if notes.formulas %}
+<section class="rk-formulas"><h2>{{ h.formulas }}</h2>
+{%- for f in notes.formulas %}
+<div class="rk-formula"><div class="rk-math">\[{{ f.latex }}\]</div><p>{{ f.meaning }}{{ cite(f.source_segment_ids) }}</p></div>
+{%- endfor %}
+</section>
+{%- endif %}
+{%- if notes.examples %}
+<section class="rk-examples"><h2>{{ h.examples }}</h2>
+{%- for e in notes.examples %}
+<div class="rk-example"><h3>{{ e.title }}{{ cite(e.source_segment_ids) }}</h3><ol>
+{%- for step in e.steps %}<li>{{ step }}</li>{% endfor -%}
+</ol></div>
+{%- endfor %}
+</section>
+{%- endif %}
+{%- if notes.class_questions %}
+<section class="rk-questions"><h2>{{ h.class_questions }}</h2>
+{%- for q in notes.class_questions %}
+<div class="rk-qa"><p class="rk-q">{{ q.question }}{{ cite(q.source_segment_ids) }}</p><p class="rk-a">{{ q.answer }}</p></div>
+{%- endfor %}
+</section>
+{%- endif %}
+{%- if notes.unclear_parts %}
+<section class="rk-unclear"><h2>{{ h.unclear }}</h2><ul>
+{%- for u in notes.unclear_parts %}<li>{{ u }}</li>{% endfor -%}
+</ul></section>
+{%- endif %}
+</article>
