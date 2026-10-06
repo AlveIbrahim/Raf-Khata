@@ -63,8 +63,17 @@ Bangladesh.
 
 ## 4. Push notifications (optional)
 1. Create a Firebase project and add an Android app with package `com.rafkhata.app`.
-2. Download `google-services.json` into `android/app/`. The build turns on Firebase Messaging
-   automatically when the file is present.
+2. Download its `google-services.json` and copy four values into `android/local.properties`. The app
+   initializes Firebase from these, so the Google Services Gradle plugin isn't used:
+
+   | `local.properties` key | Where it is in `google-services.json` |
+   |---|---|
+   | `rafkhata.firebaseProjectId` | `project_info.project_id` |
+   | `rafkhata.firebaseSenderId` | `project_info.project_number` |
+   | `rafkhata.firebaseAppId` | `client[0].client_info.mobilesdk_app_id` |
+   | `rafkhata.firebaseApiKey` | `client[0].api_key[0].current_key` |
+
+   Without them the app works normally, just without push notifications.
 3. Under Project settings → Service accounts, generate a key. Mount it on the server and set:
    ```env
    FCM_PROJECT_ID=<firebase-project-id>

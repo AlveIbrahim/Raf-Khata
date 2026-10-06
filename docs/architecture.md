@@ -78,8 +78,10 @@ recordings.
 
 - **Single-activity Compose app.**
   - MVVM: ViewModels expose `StateFlow`.
-  - Repositories combine Room (the offline source of truth) with the Retrofit API.
-  - Hilt for dependency injection.
+  - Repositories combine the Retrofit API with Room. Room keeps recordings until the server has them,
+    plus the last response for each screen, so the app opens offline.
+  - Dependencies are wired by hand in `di/AppContainer.kt`. There is no DI framework, which keeps
+    the build simple on AGP 9 with built-in Kotlin.
 - **`core-logic/`** is a plain-Kotlin build included in the Gradle project. It holds logic that needs
   no Android APIs and is unit-tested on the JVM:
   - ADTS header framing.
@@ -105,6 +107,12 @@ recordings.
 - **Sign-in:**
   - Credential Manager returns a Google ID token for the **Web** client ID, which the backend verifies.
   - Tokens are stored encrypted with an Android Keystore key.
+- **Push:** Firebase is initialized in code from the `rafkhata.firebase*` values in
+  `local.properties`, so no Google Services Gradle plugin is needed. Without them the app runs without
+  push.
+- **Languages:** English and Bangla strings are generated from one table by
+  `android/tools/gen_strings.py`, so the two files can't drift apart. The app follows the phone's
+  language and can be switched in Settings (per-app language through AppCompat).
 
 ## Testing
 - **Backend:** `uv run pytest` (unit, API, end-to-end worker runs with real ffmpeg, the mock ASR and

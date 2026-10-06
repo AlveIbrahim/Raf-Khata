@@ -200,9 +200,10 @@ limits, and user-controlled delete and export. There is never a covert recording
 - **App:** native Android in **Kotlin**. Google's Android APIs and Jetpack libraries are Kotlin-first;
   Java would work but is not recommended for new apps. iOS comes later as a separate Swift app, with
   shared logic moved to Kotlin Multiplatform if that pays off.
-  - **Stack:** Jetpack Compose (Material 3); MVVM with coroutines/Flow; Hilt for dependency injection;
-    Room for offline state (lectures, segments, upload status, cached notes); Retrofit/OkHttp for the
-    API; Media3 ExoPlayer to play audio in sync with the transcript.
+  - **Stack:** Jetpack Compose (Material 3); MVVM with coroutines/Flow; hand-written dependency
+    wiring (an `AppContainer`, no DI framework); Room for offline state (recordings, upload status,
+    cached notes); Retrofit/OkHttp for the API; Media3 ExoPlayer to play audio in sync with the
+    transcript.
   - **Recording:** `RecordingService` is a foreground service with
     `foregroundServiceType="microphone"`. It needs RECORD_AUDIO, FOREGROUND_SERVICE,
     FOREGROUND_SERVICE_MICROPHONE and POST_NOTIFICATIONS, and must be started while the app is on

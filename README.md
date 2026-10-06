@@ -54,7 +54,14 @@ Open `android/` in Android Studio (a recent release that supports AGP 9.4), then
    rafkhata.apiBaseUrl=http://10.0.2.2:8000/
    rafkhata.googleWebClientId=1234567890-abc.apps.googleusercontent.com
    ```
-2. Optional: add `android/app/google-services.json` from Firebase for push notifications.
+2. Optional, for push notifications: copy four values from your Firebase app's `google-services.json`
+   into the same file (see [deployment §4](docs/deployment.md#4-push-notifications-optional)):
+   ```properties
+   rafkhata.firebaseProjectId=your-project-id
+   rafkhata.firebaseAppId=1:1234567890:android:abc123
+   rafkhata.firebaseApiKey=AIza...
+   rafkhata.firebaseSenderId=1234567890
+   ```
 3. Run the `app` configuration. Debug builds also offer **Dev login** when the backend has
    `DEV_LOGIN_ENABLED=true`.
 

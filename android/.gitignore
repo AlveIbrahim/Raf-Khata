@@ -1,0 +1,16 @@
+# Gradle and build output
+.gradle/
+.kotlin/
+build/
+captures/
+*.apk
+*.aab
+
+# Local settings: SDK path, API URL, OAuth and Firebase keys
+local.properties
+
+# IDE
+.idea/
+*.iml
+.cxx/
+.externalNativeBuild/
